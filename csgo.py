@@ -864,6 +864,16 @@ async def shouji(bot,ev:CQEvent):
     have_all += data_all
     await bot.send_group_forward_msg(group_id=ev['group_id'], messages=have_all)
 
+@sv.on_fullmatch(('强制解锁'))
+async def unlock(bot,ev:CQEvent):
+    uid = ev.user_id
+    gid = ev.group_id
+    csgo = getcsgo()
+    if priv.check_priv(ev, priv.SUPERUSER):
+        csgo._set_num(0,0,0,0)
+        csgo._set_num(0,0,1,0)
+        await bot.finish(ev,'强制解锁完成')
+    
 @sv.on_fullmatch(('go新手礼包'))
 async def newlibao(bot,ev:CQEvent):
     uid = ev.user_id
